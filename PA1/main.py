@@ -1,20 +1,22 @@
 import pprint
 
-G = {0: {1: 16, 2: 13},  # source
+G = {0: {1: 16, 2: 13},  # 0 = source
      1: {3: 12},
      2: {1: 4, 4: 14},
      3: {2: 9, 5: 20},
      4: {3: 7, 5: 4},
-     5: {}  # sink
+     5: {}  # 5 = sink
      }
 
 
-def BFS(G, s, t):
+def bfs(G, s, t):
     visited = []
     queue = []
     path = []
+    # for shortest path
     prev_vertex = {}
 
+    # enqueue
     queue.append(s)
     visited.append(s)
 
@@ -23,12 +25,17 @@ def BFS(G, s, t):
         v = queue.pop(0)
         print("\nDequeue: ", v)
 
+        # get adjacent vertices to v
         for vertex in list(G[v].keys()):
+            # enqueue only if
+            # vertex is not visited
+            # edge from v to vertex exists
             if vertex not in visited and G[v][vertex] != 0:
                 queue.append(vertex)
                 visited.append(vertex)
                 print("Enqueue: ", vertex)
                 print("Mark: ", vertex)
+                # v is previous to vertex
                 prev_vertex[vertex] = v
 
         print("Queue:", queue)
@@ -37,7 +44,7 @@ def BFS(G, s, t):
 
         # shortest path
         if t in queue:
-            path.append(5)
+            path.append(t)
             while prev_vertex[t] != 0:
                 path.append(prev_vertex[t])
                 t = prev_vertex[t]
@@ -49,29 +56,36 @@ def BFS(G, s, t):
 
 
 # returns maximum flow from source s to sink t in graph G
-def edmondsKarp(G, s, t):
+def edmonds_karp(G, s, t):
     max_flow = 0
+
     print("\nResidual Graph: ")
     pprint.pprint(G)
 
     while True:
-        path = BFS(G, s, t)
+        path = bfs(G, s, t)
+        # if no path exists from s to t
         if not path:
             break
 
-        print("\n Shortest Path: ", path)
+        print("\nShortest Path: ", path)
 
-        min_capacity = 1000
+        # base min_capacity = capacity of first edge in path
+        min_capacity = G[0][path[1]]
+
+        # find the minimum capacity
         for idx, val in enumerate(path):
             if val != t and G[val][path[idx + 1]] <= min_capacity:
                 min_capacity = G[val][path[idx + 1]]
 
-        max_flow += min_capacity
-
-        # augment the flow
+        # flow augmentation by min_capacity
         for idx, val in enumerate(path):
             if val != t:
+                # update flow in residual graph
                 G[val][path[idx + 1]] -= min_capacity
+
+        # increase max_flow by min_capacity
+        max_flow += min_capacity
 
         print("\nResidual Graph: ")
         pprint.pprint(G)
@@ -79,4 +93,4 @@ def edmondsKarp(G, s, t):
     print("Maximum Flow: ", max_flow)
 
 
-edmondsKarp(G, 0, 5)
+edmonds_karp(G, 0, 5)
