@@ -78,11 +78,17 @@ def edmonds_karp(G, s, t):
             if val != t and G[val][path[idx + 1]] <= min_capacity:
                 min_capacity = G[val][path[idx + 1]]
 
+        print("Minimum Capacity: ", min_capacity)
+
         # flow augmentation by min_capacity
         for idx, val in enumerate(path):
             if val != t:
-                # update flow in residual graph
+                # update forward flow in residual graph
                 G[val][path[idx + 1]] -= min_capacity
+                # update backward flow in residual graph
+                if val not in G[path[idx + 1]]:
+                    G[path[idx + 1]][val] = 0
+                G[path[idx + 1]][val] += min_capacity
 
         # increase max_flow by min_capacity
         max_flow += min_capacity
