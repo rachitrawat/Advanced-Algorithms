@@ -30,9 +30,10 @@ def createRandomGraph(dir=False):
                     m += r
                     visited.append({vertex1, vertex2})
             else:
-                r = random.randint(0, 5)
-                G[vertex1][vertex2] = r
-                m += r
+                if vertex2 != vertex1:
+                    r = random.randint(0, 5)
+                    G[vertex1][vertex2] = r
+                    m += r
 
     print("No of edges: ", m)
     print()
