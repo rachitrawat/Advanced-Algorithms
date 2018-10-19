@@ -141,7 +141,7 @@ def contractEdge(G, vertex1, vertex2, map):
     for k1, v1 in G.items():
         G[k1].pop(vertex2)
 
-    map[vertex1] += (vertex2,)
+    map[vertex1] += map[vertex2]
     map.pop(vertex2)
     print()
     print("Vertex Map After:", map)
@@ -162,6 +162,7 @@ def findMinCut(G):
     lst = list(G.keys())
     min = G[lst[0]][lst[1]]
 
+    print("\nMin Cut:", map[lst[0]], map[lst[1]])
     print("\nMin Cut value:", min)
 
 
