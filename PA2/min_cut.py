@@ -111,5 +111,5 @@ def findMinCut(G):
     print("\nMin Cut value:", min)
 
 
-G = graph.createRandomUDGraph()
+G = graph.createRandomGraph()
 findMinCut(G)

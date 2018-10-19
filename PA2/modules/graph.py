@@ -1,7 +1,8 @@
 import pprint
 import random
 
-def createRandomUDGraph():
+
+def createRandomGraph(dir=False):
     # no of vertices
     v = random.randint(3, 6)
 
@@ -21,12 +22,17 @@ def createRandomUDGraph():
     m = 0
     for vertex1 in range(1, v + 1):
         for vertex2 in range(1, v + 1):
-            if vertex2 != vertex1 and {vertex1, vertex2} not in visited:
+            if not dir:
+                if vertex2 != vertex1 and {vertex1, vertex2} not in visited:
+                    r = random.randint(0, 5)
+                    G[vertex1][vertex2] = r
+                    G[vertex2][vertex1] = r
+                    m += r
+                    visited.append({vertex1, vertex2})
+            else:
                 r = random.randint(0, 5)
                 G[vertex1][vertex2] = r
-                G[vertex2][vertex1] = r
                 m += r
-                visited.append({vertex1, vertex2})
 
     print("No of edges: ", m)
     print()
