@@ -1,7 +1,6 @@
 import pprint
 import random
 
-
 def createRandomUDGraph():
     # no of vertices
     v = random.randint(3, 6)

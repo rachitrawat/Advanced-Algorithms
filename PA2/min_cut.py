@@ -1,7 +1,8 @@
-import math
 import pprint
 import random
-from PA2.modules import graph
+
+from PA2.modules import graph, misc
+
 
 def selectRandomEdge(G):
     degree = []
@@ -21,7 +22,7 @@ def selectRandomEdge(G):
     print("\nCumulative degree set 1:", degree)
     r = random.randint(1, degree[len(degree) - 1])
     print("Random Number:", r)
-    index1 = binarySearch(degree, 0, len(degree) - 1, r)
+    index1 = misc.binarySearch(degree, 0, len(degree) - 1, r)
     vertex1 = index_vertex_map[index1]
     print("Index to Vertex Map:", index_vertex_map)
     print("Corresponding Vertex:", vertex1)
@@ -54,7 +55,7 @@ def selectRandomEdge(G):
     print("Index to Vertex Map:", index_vertex_map)
     r = random.randint(1, degree[len(degree) - 1])
     print("Random Number:", r)
-    index2 = binarySearch(degree, 0, len(degree) - 1, r)
+    index2 = misc.binarySearch(degree, 0, len(degree) - 1, r)
     vertex2 = index_vertex_map[index2]
     print("Corresponding Vertex:", vertex2)
 
@@ -64,29 +65,6 @@ def selectRandomEdge(G):
     print("\nUniformly selected edge: ", vertex_lst[0], vertex_lst[1])
 
     return vertex_lst[0], vertex_lst[1]
-
-
-def binarySearch(a, l, r, x):
-    length = len(a)
-
-    if r >= l:
-        mid = math.ceil(l + (r - l) / 2)
-
-        if a[mid] == x:
-            return mid
-
-        if x <= a[0]:
-            return 0
-        elif x >= a[length - 2]:
-            return length - 1
-
-        if a[mid] <= x <= a[mid + 1]:
-            return mid + 1
-
-        elif a[mid] > x:
-            return binarySearch(a, l, mid - 1, x)
-        else:
-            return binarySearch(a, mid + 1, r, x)
 
 
 def contractEdge(G, vertex1, vertex2, map):
