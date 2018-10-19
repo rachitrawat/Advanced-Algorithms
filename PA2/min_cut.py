@@ -47,7 +47,7 @@ m = 0
 for vertex1 in range(1, v + 1):
     for vertex2 in range(1, v + 1):
         if vertex2 != vertex1 and {vertex1, vertex2} not in visited:
-            r = random.randint(1, 3)
+            r = random.randint(0, 5)
             G[vertex1][vertex2] = r
             G[vertex2][vertex1] = r
             m += r
@@ -70,18 +70,20 @@ print("\nCumulative degree set 1:", degree)
 r = random.randint(1, degree[len(degree) - 1])
 print("Random Number:", r)
 
-index1 = binarySearch(degree, 0, len(degree) - 1, r) + 1
-vertex1 = index1
+index1 = binarySearch(degree, 0, len(degree) - 1, r)
+vertex1 = index1 + 1
 
 print("Corresponding Vertex:", vertex1)
 
 degree = []
-
-neighbours = list(G[index1].keys())
-neighbours.remove(index1)
+neighbours = []
 index_vertex_map = {}
 
-print("Neighbours of Vertex %s: %s" % (index1, neighbours))
+for k, v in G[vertex1].items():
+    if v != 0:
+        neighbours.append(k)
+
+print("\nNeighbours of Vertex %s: %s" % (vertex1, neighbours))
 
 # cumulative degree
 
@@ -93,9 +95,11 @@ for k, v in G[index1].items():
             sum += v2
         degree.append(sum)
         index_vertex_map[i] = k
+        if i != 0:
+            degree[i] += degree[i - 1]
         i += 1
 
-print("\nCumulative degree set 2:", degree)
+print("Cumulative degree set 2:", degree)
 print("Index to Vertex Map:", index_vertex_map)
 r = random.randint(1, degree[len(degree) - 1])
 print("Random Number:", r)
