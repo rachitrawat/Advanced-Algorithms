@@ -128,7 +128,8 @@ def contractEdge(G, vertex1, vertex2, map):
     pprint.pprint(G)
 
     for k, v in G[vertex2].items():
-        G[vertex1][k] += v
+        if k != vertex1:
+            G[vertex1][k] += v
 
     G.pop(vertex2)
 
@@ -154,9 +155,14 @@ def findMinCut(G):
     map = {}
     for i in range(1, len(G) + 1):
         map[i] = (i,)
-    v1, v2 = selectRandomEdge(G)
-    G, map = contractEdge(G, v1, v2, map)
-    # G, map = contractEdge(G, v1, v2, map)
+    while len(G) != 2:
+        v1, v2 = selectRandomEdge(G)
+        G, map = contractEdge(G, v1, v2, map)
+
+    lst = list(G.keys())
+    min = G[lst[0]][lst[1]]
+
+    print("\nMin Cut value:", min)
 
 
 G = createRandomGraph()
