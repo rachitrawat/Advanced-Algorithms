@@ -36,12 +36,13 @@ def createRandomGraph():
     return G
 
 
-def selectRandomEdge(G, map):
+def selectRandomEdge(G):
     degree = []
     index_vertex_map = {}
+    v = list(G.keys())
 
     i = 0
-    for k1, v1 in map.items():
+    for k1 in v:
         degree.append(0)
         index_vertex_map[i] = k1
         for k2, v2 in G[k1].items():
@@ -153,7 +154,7 @@ def findMinCut(G):
     map = {}
     for i in range(1, len(G) + 1):
         map[i] = (i,)
-    v1, v2 = selectRandomEdge(G, map)
+    v1, v2 = selectRandomEdge(G)
     G, map = contractEdge(G, v1, v2, map)
     # G, map = contractEdge(G, v1, v2, map)
 
