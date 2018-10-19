@@ -36,23 +36,26 @@ def createRandomGraph():
     return G
 
 
-def selectRandomEdge(G):
+def selectRandomEdge(G, map):
     degree = []
-    v = len(G)
+    index_vertex_map = {}
 
-    # cumulative degree
-    for i in range(1, v + 1):
+    i = 0
+    for k1, v1 in map.items():
         degree.append(0)
-        for j in range(1, v + 1):
-            degree[i - 1] += (G[i][j])
-        if i != 1:
-            degree[i - 1] += degree[i - 2]
+        index_vertex_map[i] = k1
+        for k2, v2 in G[k1].items():
+            degree[i] += G[k1][k2]
+        if i != 0:
+            degree[i] += degree[i - 1]
+        i += 1
 
     print("\nCumulative degree set 1:", degree)
     r = random.randint(1, degree[len(degree) - 1])
     print("Random Number:", r)
     index1 = binarySearch(degree, 0, len(degree) - 1, r)
-    vertex1 = index1 + 1
+    vertex1 = index_vertex_map[index1]
+    print("Index to Vertex Map:", index_vertex_map)
     print("Corresponding Vertex:", vertex1)
 
     degree = []
@@ -119,6 +122,8 @@ def binarySearch(a, l, r, x):
 
 
 def contractEdge(G, vertex1, vertex2, map):
+    print("\nVertex Map Before:", map)
+    print()
     pprint.pprint(G)
 
     for k, v in G[vertex2].items():
@@ -134,19 +139,23 @@ def contractEdge(G, vertex1, vertex2, map):
     for k1, v1 in G.items():
         G[k1].pop(vertex2)
 
+    map[vertex1] += (vertex2,)
+    map.pop(vertex2)
+    print()
+    print("Vertex Map After:", map)
     print()
     pprint.pprint(G)
 
-    map[vertex1] = (vertex1, vertex2)
     return G, map
 
 
 def findMinCut(G):
-    v1, v2 = selectRandomEdge(G)
     map = {}
     for i in range(1, len(G) + 1):
-        map[i] = i
+        map[i] = (i,)
+    v1, v2 = selectRandomEdge(G, map)
     G, map = contractEdge(G, v1, v2, map)
+    # G, map = contractEdge(G, v1, v2, map)
 
 
 G = createRandomGraph()
