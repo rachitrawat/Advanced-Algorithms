@@ -1,6 +1,6 @@
 import math
-import random
 import pprint
+import random
 
 
 def binarySearch(a, l, r, x):
@@ -66,13 +66,10 @@ for i in range(1, v + 1):
         degree[i - 1] += degree[i - 2]
 
 print("\nCumulative degree set 1:", degree)
-
 r = random.randint(1, degree[len(degree) - 1])
 print("Random Number:", r)
-
 index1 = binarySearch(degree, 0, len(degree) - 1, r)
 vertex1 = index1 + 1
-
 print("Corresponding Vertex:", vertex1)
 
 degree = []
