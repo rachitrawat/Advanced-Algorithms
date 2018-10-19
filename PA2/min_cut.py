@@ -87,8 +87,12 @@ def selectRandomEdge(G):
     vertex2 = index_vertex_map[index2]
     print("Corresponding Vertex:", vertex2)
 
-    print("\nUniformly selected edge: ", vertex1, vertex2)
-    return vertex1, vertex2
+    vertex_lst = [vertex1, vertex2]
+    vertex_lst.sort()
+
+    print("\nUniformly selected edge: ", vertex_lst[0], vertex_lst[1])
+
+    return vertex_lst[0], vertex_lst[1]
 
 
 def binarySearch(a, l, r, x):
@@ -114,5 +118,36 @@ def binarySearch(a, l, r, x):
             return binarySearch(a, mid + 1, r, x)
 
 
+def contractEdge(G, vertex1, vertex2, map):
+    pprint.pprint(G)
+
+    for k, v in G[vertex2].items():
+        G[vertex1][k] += v
+
+    G.pop(vertex2)
+
+    for k1, v1 in G.items():
+        for k2, v2 in G[k1].items():
+            if k2 == vertex2 and k1 != vertex1:
+                G[k1][vertex1] += v2
+
+    for k1, v1 in G.items():
+        G[k1].pop(vertex2)
+
+    print()
+    pprint.pprint(G)
+
+    map[vertex1] = (vertex1, vertex2)
+    return G, map
+
+
+def findMinCut(G):
+    v1, v2 = selectRandomEdge(G)
+    map = {}
+    for i in range(1, len(G) + 1):
+        map[i] = i
+    G, map = contractEdge(G, v1, v2, map)
+
+
 G = createRandomGraph()
-v1, v2 = selectRandomEdge(G)
+findMinCut(G)
