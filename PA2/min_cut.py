@@ -88,7 +88,7 @@ print("\nNeighbours of Vertex %s: %s" % (vertex1, neighbours))
 # cumulative degree
 
 i = 0
-for k, v in G[index1].items():
+for k, v in G[vertex1].items():
     sum = 0
     if k in neighbours:
         for k2, v2 in G[k].items():
