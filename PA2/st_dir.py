@@ -1,4 +1,96 @@
-from PA2.modules import graph
+import math
+import random
+
+from PA2.modules import graph, misc
+
+
+def check_connectivity(G, s, t, S):
+    degree = []
+    neighbours = []
+    index_vertex_map = {}
+
+    no_neighbours = True
+    for k, v in G[s].items():
+        if v != 0:
+            no_neighbours = False
+            neighbours.append(k)
+
+    # if no outgoing edge, return to s
+    if no_neighbours:
+        print("No Neighbours!")
+        return False, S
+
+    print("\nNeighbours of Vertex %s: %s" % (s, neighbours))
+
+    # cumulative degree
+
+    i = 0
+    for k, v in G[s].items():
+        sum = 0
+        if k in neighbours:
+            for k2, v2 in G[k].items():
+                sum += v2
+            degree.append(sum)
+            index_vertex_map[i] = k
+            if i != 0:
+                degree[i] += degree[i - 1]
+            i += 1
+
+    print("Cumulative degree set:", degree)
+    print("Index to Vertex Map:", index_vertex_map)
+    r = random.randint(1, degree[len(degree) - 1])
+    print("Random Number:", r)
+    index2 = misc.binarySearch(degree, 0, len(degree) - 1, r)
+    vertex2 = index_vertex_map[index2]
+    print("Corresponding Vertex:", vertex2)
+
+    if vertex2 == t:
+        return True, vertex2
+    else:
+        return False, vertex2
+
 
 G = graph.createRandomGraph(True)
 
+s = int(input("\nEnter s:"))
+t = int(input("Enter t:"))
+v = len(G)
+threshold = 2 * len(G) ** 3
+print("\nThreshold:", threshold)
+
+bool = False
+coin_break = True
+S = s
+while True:
+    i = 0
+    while i < threshold:
+        bool, vertex = check_connectivity(G, s, t, S)
+        if bool:
+            break
+        s = vertex
+        i += 1
+
+    if not bool:
+        no_coins = math.ceil(math.log(v ** v, 2))
+        print("\nFlipping coin %s times..." % no_coins)
+
+        while no_coins != 0:
+            if random.randint(0, 1) == 0:
+                print("Tails")
+                coin_break = False
+                break
+            else:
+                print("Heads")
+            no_coins -= 1
+
+        if coin_break:
+            break
+        else:
+            print("Continue loop...")
+            continue
+    break
+
+if bool:
+    print("\nVertices %s and %s are in the same connected component!" % (s, t))
+else:
+    print("\nVertices %s and %s are not in the same connected component!" % (s, t))
