@@ -11,7 +11,7 @@ def isPrime(n, k=11):
     r = 1
     d = 0
     while True:
-        d = x // 2 ** r
+        d = x // (2 ** r)
         if d % 2 == 1:
             break
         else:
@@ -32,7 +32,7 @@ def miller_rabin(n, d, r):
         return True
 
     for i in range(1, r):
-        x = (x ** 2) % n
+        x = pow(x, 2, n)
         if x == 1:
             return False
         if x == n - 1:
