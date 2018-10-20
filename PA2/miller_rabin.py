@@ -26,7 +26,7 @@ def isPrime(n, k=11):
 
 def miller_rabin(n, d, r):
     a = random.randint(2, n - 2)
-    x = (a ** d) % n
+    x = pow(a, d, n)
 
     if x == 1 or x == n - 1:
         return True
