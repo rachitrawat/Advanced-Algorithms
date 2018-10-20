@@ -1,7 +1,7 @@
 import random
 
 
-def isPrime(n, k):
+def isPrime(n, k=11):
     if n == 2 or n == 3:
         return True
     elif n % 2 == 0 or n < 2:
