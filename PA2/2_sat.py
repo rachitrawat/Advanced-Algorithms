@@ -71,7 +71,11 @@ n, exp = generate_random_exp()
 assignment = [1] * n
 bool, x = evaluate_exp(exp, assignment)
 
+i = 2
 while not bool:
+    if i > pow(2 * n, 2):
+        print("Expression is not satisfiable!")
+        break
     random_clause = x[random.randint(0, len(x) - 1)]
     print("Random Clause:", exp[random_clause])
     random_literal = exp[random_clause][random.randint(0, 1)]
