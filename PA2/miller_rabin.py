@@ -30,9 +30,7 @@ def miller_rabin(n, d, r):
 
     for i in range(1, r):
         x = pow(x, 2, n)
-        if x == 1:
-            return False
-        elif x == n - 1:
+        if x == n - 1:
             return True
 
     return False
