@@ -8,14 +8,11 @@ def isPrime(n, k=11):
         return False
 
     x = n - 1
-    r = 1
+    r = 0
 
-    while True:
+    while x % 2 == 0:
         x = x // 2
-        if x % 2 == 1:
-            break
-        else:
-            r += 1
+        r += 1
 
     for i in range(1, k + 1):
         if not miller_rabin(n, x, r):
