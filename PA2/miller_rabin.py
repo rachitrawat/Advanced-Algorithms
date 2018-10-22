@@ -35,6 +35,8 @@ def miller_rabin(n, d, r):
         if x == n - 1:
             return True
 
+    return False
+
 
 while True:
     n = int(input("Enter No:"))
