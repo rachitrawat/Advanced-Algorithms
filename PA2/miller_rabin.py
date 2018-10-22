@@ -9,16 +9,16 @@ def isPrime(n, k=11):
 
     x = n - 1
     r = 1
-    d = 0
+
     while True:
-        d = x // (2 ** r)
-        if d % 2 == 1:
+        x = x // 2
+        if x % 2 == 1:
             break
         else:
             r += 1
 
     for i in range(1, k + 1):
-        if not miller_rabin(n, d, r):
+        if not miller_rabin(n, x, r):
             return False
 
     return True
@@ -37,3 +37,8 @@ def miller_rabin(n, d, r):
             return False
         if x == n - 1:
             return True
+
+
+while True:
+    n = int(input("Enter No:"))
+    print(isPrime(n))
