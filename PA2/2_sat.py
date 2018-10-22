@@ -73,7 +73,7 @@ bool, x = evaluate_exp(exp, assignment)
 
 i = 2
 while not bool:
-    if i > pow(2 * n, 2):
+    if i > 2 * pow(n, 2):
         print("Expression is not satisfiable!")
         break
     random_clause = x[random.randint(0, len(x) - 1)]
