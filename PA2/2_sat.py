@@ -82,3 +82,4 @@ while not bool:
     print("Random Literal:", random_literal)
     assignment[abs(random_literal)] = (assignment[abs(random_literal)] + 1) % 2
     bool, x = evaluate_exp(exp, assignment)
+    i += 1

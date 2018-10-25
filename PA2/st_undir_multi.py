@@ -44,7 +44,7 @@ def check_connectivity(G, s, t):
 
 G = graph.createRandomGraph()
 v = len(G)
-threshold = 2 * len(G) ** 3
+threshold = 2 * v ** 3
 print("\nThreshold:", threshold)
 
 s = int(input("\nEnter s:"))

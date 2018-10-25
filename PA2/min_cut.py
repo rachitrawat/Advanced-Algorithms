@@ -68,17 +68,22 @@ def contractEdge(G, vertex1, vertex2, map):
 
     for k, v in G[vertex2].items():
         if k != vertex1:
+            if k not in G[vertex1]:
+                G[vertex1][k] = 0
             G[vertex1][k] += v
 
     G.pop(vertex2)
 
-    for k1, v1 in G.items():
-        for k2, v2 in G[k1].items():
+    for k1 in list(G):
+        for k2 in list(G[k1]):
             if k2 == vertex2 and k1 != vertex1:
-                G[k1][vertex1] += v2
+                if vertex1 not in G[k1]:
+                    G[k1][vertex1] = 0
+                G[k1][vertex1] += G[k1][k2]
 
     for k1, v1 in G.items():
-        G[k1].pop(vertex2)
+        if vertex2 in G[k1]:
+            G[k1].pop(vertex2)
 
     map[vertex1] += map[vertex2]
     map.pop(vertex2)
@@ -92,8 +97,8 @@ def contractEdge(G, vertex1, vertex2, map):
 
 def findMinCut(G):
     map = {}
-    for i in range(1, len(G) + 1):
-        map[i] = (i,)
+    for k, v in G.items():
+        map[k] = (k,)
     while len(G) != 2:
         v1, v2 = selectRandomEdge(G)
         G, map = contractEdge(G, v1, v2, map)
