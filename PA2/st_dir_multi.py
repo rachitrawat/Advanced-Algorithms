@@ -8,13 +8,15 @@ def check_connectivity(G, s, t, S):
     degree = []
     neighbours = []
     index_vertex_map = {}
+    no_neighbours = False
 
     if len(G[s]) == 0:
         no_neighbours = True
-        # if no outgoing edge, return to s
-        if no_neighbours:
-            print("No Neighbours of %s" % s)
-            return False, S
+
+    # if no outgoing edge, return to S
+    if no_neighbours:
+        print("No Neighbours of %s" % s)
+        return False, S
     else:
         for k, v in G[s].items():
             neighbours.append(k)
