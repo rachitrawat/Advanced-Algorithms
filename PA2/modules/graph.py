@@ -16,7 +16,7 @@ def createRandomGraph(dir=False):
         if i not in G:
             G[i] = {}
         for j in range(1, v + 1):
-            if j not in G[i]:
+            if j not in G[i] and j != i:
                 G[i][j] = 0
 
     m = 0
@@ -24,14 +24,14 @@ def createRandomGraph(dir=False):
         for vertex2 in range(1, v + 1):
             if not dir:
                 if vertex2 != vertex1 and {vertex1, vertex2} not in visited:
-                    r = random.randint(0, 5)
+                    r = random.randint(1, 5)
                     G[vertex1][vertex2] = r
                     G[vertex2][vertex1] = r
                     m += r
                     visited.append({vertex1, vertex2})
             else:
                 if vertex2 != vertex1:
-                    r = random.randint(0, 5)
+                    r = random.randint(1, 5)
                     G[vertex1][vertex2] = r
                     m += r
 

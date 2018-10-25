@@ -27,7 +27,6 @@ def selectRandomEdge(G):
     print("Index to Vertex Map:", index_vertex_map)
     print("Corresponding Vertex:", vertex1)
 
-    degree = []
     neighbours = []
     index_vertex_map = {}
 
