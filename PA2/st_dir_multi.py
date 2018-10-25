@@ -39,11 +39,15 @@ def check_connectivity(G, s, t, S):
 
     print("Cumulative degree set:", degree)
     print("Index to Vertex Map:", index_vertex_map)
-    r = random.randint(1, degree[len(degree) - 1])
-    print("Random Number:", r)
-    index2 = misc.binarySearch(degree, 0, len(degree) - 1, r)
-    vertex2 = index_vertex_map[index2]
-    print("Corresponding Vertex:", vertex2)
+    if len(degree) == 1:
+        vertex2 = index_vertex_map[0]
+        print("Corresponding Vertex:", vertex2)
+    else:
+        r = random.randint(1, degree[len(degree) - 1])
+        print("Random Number:", r)
+        index2 = misc.binarySearch(degree, 0, len(degree) - 1, r)
+        vertex2 = index_vertex_map[index2]
+        print("Corresponding Vertex:", vertex2)
 
     if vertex2 == t:
         return True, vertex2

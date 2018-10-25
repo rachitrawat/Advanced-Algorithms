@@ -48,7 +48,6 @@ while True:
     i = 0
     while i < threshold:
         bool, vertex = check_connectivity(G, s, t, S)
-        print(i, threshold)
         if bool:
             break
         s = vertex
