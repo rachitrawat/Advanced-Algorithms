@@ -39,17 +39,12 @@ def selectRandomEdge(G):
 
     # cumulative degree
 
-    i = 0
-    for k, v in G[vertex1].items():
-        sum = 0
-        if k in neighbours:
-            for k2, v2 in G[k].items():
-                sum += v2
-            degree.append(sum)
-            index_vertex_map[i] = k
-            if i != 0:
-                degree[i] += degree[i - 1]
-            i += 1
+    degree = []
+    for idx, element in enumerate(neighbours):
+        degree.append(G[vertex1][element])
+        index_vertex_map[idx] = element
+        if idx != 0:
+            degree[idx] += degree[idx - 1]
 
     print("Cumulative degree set 2:", degree)
     print("Index to Vertex Map:", index_vertex_map)
