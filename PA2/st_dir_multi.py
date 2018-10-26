@@ -57,7 +57,7 @@ def check_connectivity(G, s, t, S):
 
 G = graph.createRandomGraph(True)
 v = len(G)
-threshold = 2 * v ** 3
+threshold = v - 1
 print("\nThreshold:", threshold)
 
 s = int(input("\nEnter s:"))
@@ -69,6 +69,7 @@ S = s
 while True:
     i = 0
     while i < threshold:
+        coin_break = True
         bool, vertex = check_connectivity(G, s, t, S)
         if bool:
             break
