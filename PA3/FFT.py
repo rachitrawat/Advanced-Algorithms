@@ -56,16 +56,14 @@ print("coefficients of x:", x)
 print("coefficients of y:", y)
 print("n:", n)
 X = FFT(x)
-print("\nFFT x:", X)
+print("\nFFT(x):", X)
 Y = FFT(y)
-print("FFT y:", Y)
+print("\nFFT(y):", Y)
 
 Z = []
 for i in range(0, n):
     Z.append(X[i] * Y[i])
-print("Z:", Z)
+print("\nZ:", Z)
 
-ifft_lst = iFFT(Z)
-for idx, element in enumerate(ifft_lst):
-    ifft_lst[idx] = "{:.2f}".format(element)
-print("\niFFT Z:", ifft_lst)
+ifft_lst = ["{:.2f}".format(element) for element in iFFT(Z)]
+print("\niFFT(Z):", ifft_lst)
