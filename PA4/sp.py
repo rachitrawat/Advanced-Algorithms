@@ -58,6 +58,7 @@ def simple_polygon(P):
 P = utils.dummy_simple_polygon()
 shuffle(P)
 pts = simple_polygon(P)
+print(pts)
 
 import matplotlib.pyplot as plt
 
