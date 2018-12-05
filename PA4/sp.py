@@ -18,40 +18,38 @@ def simple_polygon(P):
             break
 
     print("Extreme point:", extreme_pt)
+    print("\n", extreme_pt, end=',')
     P.remove(extreme_pt)
 
-    dict_theta = {}
-    dict_dist = {}
     dict = {}
-    for i in range(1, len(P)):
+    dict_dist = {}
+    for i in range(0, len(P)):
         if extreme_pt[0] == P[i][0]:
-            theta = 10 ** -100
+            print(P[i], end=',')
         else:
             theta = (extreme_pt[1] - P[i][1]) / (extreme_pt[0] - P[i][0])
-        dist = pow(extreme_pt[0] - P[i][0], 2) + pow(extreme_pt[1] - P[i][1], 2)
+            dist = pow(extreme_pt[0] - P[i][0], 2) + pow(extreme_pt[1] - P[i][1], 2)
 
-        dict_theta[tuple(P[i])] = theta
-        dict_dist[tuple(P[i])] = dist
-        dict[tuple(P[i])] = theta, dist
+            dict_dist[tuple(P[i])] = dist
 
-    sorted_lst = sorted(dict_theta.items(), key=operator.itemgetter(1))
+            if theta not in dict:
+                dict[theta] = []
 
-    lst = []
-    for idx, val in enumerate(sorted_lst):
-        if idx == len(sorted_lst) - 1:
-            lst.append(sorted_lst[idx][0])
-        else:
-            if sorted_lst[idx][1] == sorted_lst[idx + 1][1]:
-                if dict_dist[sorted_lst[idx][0]] < dict_dist[sorted_lst[idx + 1][0]]:
-                    lst.append(sorted_lst[idx + 1][0])
-                    lst.append(sorted_lst[idx][0])
-                else:
-                    lst.append(sorted_lst[idx][0])
-                    lst.append(sorted_lst[idx + 1][0])
+            if len(dict[theta]) > 0:
+                lst = dict[theta]
+                lst.append(P[i])
+                for idx, pt in enumerate(dict[theta]):
+                    if dist > dict_dist[tuple(pt)] and idx != len(dict[theta]) - 1:
+                        lst.insert(idx, P[i])
+                        lst.pop()
+                dict[theta] = lst
             else:
-                lst.append(sorted_lst[idx][0])
+                dict[theta].append(P[i])
 
-    print(lst)
+    sorted_lst = sorted(dict.items(), key=operator.itemgetter(0))
+    for element in sorted_lst:
+        for point in element[1]:
+            print(point, end=',')
 
 
 P = utils.dummy_simple_polygon()
