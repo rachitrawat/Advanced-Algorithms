@@ -6,6 +6,7 @@ from PA4.modules import utils
 
 
 def simple_polygon(P):
+    final_pts = []
     P = sorted(P, key=itemgetter(0), reverse=True)
     extreme_pt = [P[0][0]]
 
@@ -18,14 +19,14 @@ def simple_polygon(P):
             break
 
     print("Extreme point:", extreme_pt)
-    print("\n", extreme_pt, end=',')
+    final_pts.append(extreme_pt)
     P.remove(extreme_pt)
 
     dict = {}
     dict_dist = {}
     for i in range(0, len(P)):
         if extreme_pt[0] == P[i][0]:
-            print(P[i], end=',')
+            final_pts.append(P[i])
         else:
             theta = (extreme_pt[1] - P[i][1]) / (extreme_pt[0] - P[i][0])
             dist = pow(extreme_pt[0] - P[i][0], 2) + pow(extreme_pt[1] - P[i][1], 2)
@@ -49,9 +50,22 @@ def simple_polygon(P):
     sorted_lst = sorted(dict.items(), key=operator.itemgetter(0))
     for element in sorted_lst:
         for point in element[1]:
-            print(point, end=',')
+            final_pts.append(point)
+
+    return final_pts
 
 
 P = utils.dummy_simple_polygon()
 shuffle(P)
-simple_polygon(P)
+pts = simple_polygon(P)
+
+import matplotlib.pyplot as plt
+
+coord = pts
+coord.append(coord[0])
+
+xs, ys = zip(*coord)
+
+plt.figure()
+plt.plot(xs, ys)
+plt.show()
