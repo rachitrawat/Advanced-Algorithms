@@ -18,9 +18,11 @@ def simple_polygon(P):
             break
 
     print("Extreme point:", extreme_pt)
+    P.remove(extreme_pt)
 
     dict_theta = {}
     dict_dist = {}
+    dict = {}
     for i in range(1, len(P)):
         if extreme_pt[0] == P[i][0]:
             theta = 10 ** -100
@@ -30,9 +32,26 @@ def simple_polygon(P):
 
         dict_theta[tuple(P[i])] = theta
         dict_dist[tuple(P[i])] = dist
+        dict[tuple(P[i])] = theta, dist
 
     sorted_lst = sorted(dict_theta.items(), key=operator.itemgetter(1))
-    print(sorted_lst)
+
+    lst = []
+    for idx, val in enumerate(sorted_lst):
+        if idx == len(sorted_lst) - 1:
+            lst.append(sorted_lst[idx][0])
+        else:
+            if sorted_lst[idx][1] == sorted_lst[idx + 1][1]:
+                if dict_dist[sorted_lst[idx][0]] < dict_dist[sorted_lst[idx + 1][0]]:
+                    lst.append(sorted_lst[idx + 1][0])
+                    lst.append(sorted_lst[idx][0])
+                else:
+                    lst.append(sorted_lst[idx][0])
+                    lst.append(sorted_lst[idx + 1][0])
+            else:
+                lst.append(sorted_lst[idx][0])
+
+    print(lst)
 
 
 P = utils.dummy_simple_polygon()
