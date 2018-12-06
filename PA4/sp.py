@@ -1,5 +1,4 @@
 import operator
-from operator import itemgetter
 from random import shuffle
 
 from PA4.modules import utils
@@ -7,18 +6,12 @@ from PA4.modules import utils
 
 def simple_polygon(P):
     final_pts = []
-    P = sorted(P, key=itemgetter(0), reverse=True)
-    extreme_pt = [P[0][0]]
 
-    lst = []
-    for pt in P:
-        if P[0][0] == pt[0]:
-            lst.append(pt[1])
-        else:
-            extreme_pt.append(min(lst))
-            break
-
+    max_x = max([item[0] for item in P])
+    min_y = min([item[1] for item in P if item[0] == max_x])
+    extreme_pt = [max_x, min_y]
     print("Extreme point:", extreme_pt)
+
     final_pts.append(extreme_pt)
     P.remove(extreme_pt)
 
@@ -39,8 +32,8 @@ def simple_polygon(P):
             if len(dict[theta]) > 0:
                 lst = dict[theta]
                 lst.append(P[i])
-                for idx, pt in enumerate(dict[theta]):
-                    if dist > dict_dist[tuple(pt)] and idx != len(dict[theta]) - 1:
+                for idx in range(0, len(dict[theta]) - 1):
+                    if dist > dict_dist[tuple(dict[theta][idx])]:
                         lst.insert(idx, P[i])
                         lst.pop()
                 dict[theta] = lst
