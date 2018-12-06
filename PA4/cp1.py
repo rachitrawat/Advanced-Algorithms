@@ -32,15 +32,15 @@ def closestStrip(strip, size, d):
     return math.sqrt(min_), pair
 
 
-def closestUtil(P, n):
+def closestPair(P, n):
     if n <= 3:
         return bruteForce(P, n)
 
     mid = n // 2
     midpt = P[mid]
 
-    dL, pairL = closestUtil(P[0:mid:1], mid)
-    dR, pairR = closestUtil(P[mid:n:1], n - mid)
+    dL, pairL = closestPair(P[0:mid:1], mid)
+    dR, pairR = closestPair(P[mid:n:1], n - mid)
     d = min(dL, dR)
 
     if d == dL:
@@ -62,13 +62,13 @@ def closestUtil(P, n):
         return dStrip, pairStrip
 
 
-def closest(P, n):
+def main(P, n):
     P = sorted(P, key=itemgetter(0))
-    return closestUtil(P, n)
+    return closestPair(P, n)
 
 
 P = [[2, 3], [12, 30], [40, 50], [5, 1], [12, 10], [3, 4]]
-distance, pair = (closest(P, len(P)))
+distance, pair = main(P, len(P))
 distance = "%.2f" % distance
 print("Closest pair: %s Distance: %s" % (pair, distance))
 
