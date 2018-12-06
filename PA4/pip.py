@@ -21,3 +21,15 @@ P = utils.dummy_simple_polygon()
 q = [368, 308]
 
 print("Point inside polygon: ", pointInsidePolygon(P, q))
+
+import matplotlib.pyplot as plt
+
+coord = P
+coord.append(coord[0])
+
+xs, ys = zip(*coord)
+
+plt.figure()
+plt.plot(xs, ys)
+plt.plot([q[0]], [q[1]], marker='o', markersize=4, color="red")
+plt.show()

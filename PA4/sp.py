@@ -69,4 +69,5 @@ xs, ys = zip(*coord)
 
 plt.figure()
 plt.plot(xs, ys)
+plt.plot([pts[0][0]], [pts[0][1]], marker='o', markersize=4, color="red")
 plt.show()
