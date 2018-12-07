@@ -1,3 +1,6 @@
+import operator
+
+
 def dummy_simple_polygon():
     P = [[320, 368], [320, 384], [288, 384], [288, 380], [308, 380], [308, 376], [280, 376], [280, 392], [332, 392],
          [332, 364], [364, 364], [364, 352], [256, 352], [256, 404], [224, 404], [224, 332], [352, 332], [352, 288],
@@ -10,3 +13,46 @@ def dummy_simple_polygon():
          [408, 404], [408, 372], [352, 372], [352, 404], [264, 404], [264, 368]]
 
     return P
+
+
+def simple_polygon(P):
+    final_pts = []
+
+    max_x = max([item[0] for item in P])
+    min_y = min([item[1] for item in P if item[0] == max_x])
+    extreme_pt = [max_x, min_y]
+
+    final_pts.append(extreme_pt)
+    P.remove(extreme_pt)
+
+    dict = {}
+    dict_dist = {}
+    for i in range(0, len(P)):
+        if extreme_pt[0] == P[i][0]:
+            final_pts.append(P[i])
+        else:
+            theta = (extreme_pt[1] - P[i][1]) / (extreme_pt[0] - P[i][0])
+            dist = pow(extreme_pt[0] - P[i][0], 2) + pow(extreme_pt[1] - P[i][1], 2)
+
+            dict_dist[tuple(P[i])] = dist
+
+            if theta not in dict:
+                dict[theta] = []
+
+            if len(dict[theta]) > 0:
+                lst = dict[theta]
+                lst.append(P[i])
+                for idx in range(0, len(dict[theta]) - 1):
+                    if dist > dict_dist[tuple(dict[theta][idx])]:
+                        lst.insert(idx, P[i])
+                        lst.pop()
+                dict[theta] = lst
+            else:
+                dict[theta].append(P[i])
+
+    sorted_lst = sorted(dict.items(), key=operator.itemgetter(0))
+    for element in sorted_lst:
+        for point in element[1]:
+            final_pts.append(point)
+
+    return final_pts
