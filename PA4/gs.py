@@ -11,10 +11,7 @@ def orientation(p, q, r):
 def GrahamScan(P, n):
     P = utils.simple_polygon(P)
     hull = []
-
-    max_x = max([item[0] for item in P])
-    min_y = min([item[1] for item in P if item[0] == max_x])
-    extreme_pt = [max_x, min_y]
+    extreme_pt = [P[0][0], P[0][1]]
     print("Extreme point:", extreme_pt)
 
     hull.append(P[0])
