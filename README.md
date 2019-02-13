@@ -1,6 +1,6 @@
 # CS407-Advanced-Algorithms
 
-Python implemetation of various advanced algorithms:
+Python implementation of various advanced algorithms:
 
 ### Network Flow
 1. Edmonds-Karp
