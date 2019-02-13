@@ -1,4 +1,4 @@
-# CS407-Advanced-Algorithms
+# Advanced-Algorithms
 
 Python implementation of various advanced algorithms:
 
