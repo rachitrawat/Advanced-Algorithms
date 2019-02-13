@@ -1,3 +1,7 @@
+"""
+Implementation of the 2 SAT problem in Python.
+"""
+
 import random
 
 

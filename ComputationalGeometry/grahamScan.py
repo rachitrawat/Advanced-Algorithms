@@ -1,6 +1,10 @@
+"""
+Python implementation of Graham’s Scan.
+"""
+
 from random import shuffle
 
-from PA4.modules import utils
+from ComputationalGeometry.modules import utils
 
 
 def orientation(p, q, r):

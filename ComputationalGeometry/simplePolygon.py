@@ -1,7 +1,11 @@
+"""
+Python implementation of Simple Polygon,
+"""
+
 import operator
 from random import shuffle
 
-from PA4.modules import utils
+from ComputationalGeometry.modules import utils
 
 
 def simple_polygon(P):

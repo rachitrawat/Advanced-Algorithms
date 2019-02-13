@@ -1,7 +1,11 @@
+"""
+Implementation of the min-cut problem in Python.
+"""
+
 import pprint
 import random
 
-from PA2.modules import graph, misc
+from RandomizedAlgorithms.modules import graph, misc
 
 
 def selectRandomEdge(G):

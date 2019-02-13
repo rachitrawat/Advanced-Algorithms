@@ -1,3 +1,7 @@
+"""
+Python implementation of Closest Pair problem.
+"""
+
 import math
 from _operator import itemgetter
 

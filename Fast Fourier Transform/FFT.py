@@ -1,3 +1,7 @@
+"""
+Implementation of the forward Fourier and the inverse Fourier transform in Python to multiply two polynomials.
+"""
+
 import cmath
 import math
 import random
@@ -56,9 +60,9 @@ print("coefficients of x:", x)
 print("coefficients of y:", y)
 print("n:", n)
 X = FFT(x)
-print("\nFFT(x):", X)
+print("\nFast Fourier Transform(x):", X)
 Y = FFT(y)
-print("\nFFT(y):", Y)
+print("\nFast Fourier Transform(y):", Y)
 
 Z = []
 for i in range(0, n):

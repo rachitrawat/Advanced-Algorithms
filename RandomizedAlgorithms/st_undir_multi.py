@@ -1,6 +1,10 @@
+"""
+Implementation of s − t connectivity in an undirected multigraph in Python.
+"""
+
 import random
 
-from PA2.modules import graph, misc
+from RandomizedAlgorithms.modules import graph, misc
 
 
 def check_connectivity(G, s, t):

@@ -1,3 +1,7 @@
+"""
+Implementation of primality testing using Miller-Rabin algorithm in Python.
+"""
+
 import random
 
 

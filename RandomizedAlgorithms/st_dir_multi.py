@@ -1,12 +1,17 @@
+"""
+Implementation of s − t connectivity in a directed multigraph in Python.
+"""
+
 import math
 import random
 
-from PA2.modules import graph
+from RandomizedAlgorithms.modules import graph, misc
 
 
 def check_connectivity(G, s, t, S):
+    degree = []
     neighbours = []
-
+    index_vertex_map = {}
     no_neighbours = False
 
     if len(G[s]) == 0:
@@ -22,18 +27,39 @@ def check_connectivity(G, s, t, S):
 
     print("\nNeighbours of Vertex %s: %s" % (s, neighbours))
 
-    r = random.randint(0, len(neighbours) - 1)
-    print("Random Number:", r)
-    vertex = neighbours[r]
-    print("Corresponding Vertex:", vertex)
+    # cumulative degree
 
-    if vertex == t:
-        return True, vertex
+    i = 0
+    for k, v in G[s].items():
+        sum = 0
+        if k in neighbours:
+            for k2, v2 in G[k].items():
+                sum += v2
+            degree.append(sum)
+            index_vertex_map[i] = k
+            if i != 0:
+                degree[i] += degree[i - 1]
+            i += 1
+
+    print("Cumulative degree set:", degree)
+    print("Index to Vertex Map:", index_vertex_map)
+    if len(degree) == 1:
+        vertex2 = index_vertex_map[0]
+        print("Corresponding Vertex:", vertex2)
     else:
-        return False, vertex
+        r = random.randint(1, degree[len(degree) - 1])
+        print("Random Number:", r)
+        index2 = misc.binarySearch(degree, 0, len(degree) - 1, r)
+        vertex2 = index_vertex_map[index2]
+        print("Corresponding Vertex:", vertex2)
+
+    if vertex2 == t:
+        return True, vertex2
+    else:
+        return False, vertex2
 
 
-G = graph.createRandomGraph(True, True)
+G = graph.createRandomGraph(True)
 v = len(G)
 threshold = v - 1
 print("\nThreshold:", threshold)
@@ -75,6 +101,6 @@ while True:
     break
 
 if bool:
-    print("\nVertices %s and %s are in the same connected component!" % (S, t))
+    print("\nVertices %s and %s are in the same connected component!" % (s, t))
 else:
-    print("\nVertices %s and %s are not in the same connected component!" % (S, t))
+    print("\nVertices %s and %s are not in the same connected component!" % (s, t))

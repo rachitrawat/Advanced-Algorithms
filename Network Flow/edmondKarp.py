@@ -1,3 +1,7 @@
+"""
+Implementation of the Edmonds-Karp algorithm in Python.
+"""
+
 import pprint
 
 G = {0: {1: 16, 2: 13},  # 0 = source
